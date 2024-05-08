@@ -70,3 +70,8 @@ button:focus-visible {
 .header {
   padding: 1rem;
 }
+
+blockquote {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
