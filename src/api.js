@@ -19,3 +19,14 @@ export async function fetchArticle(article_id, setArticle, setIsLoading) {
         // handle error
     }
 };
+
+export async function fetchComments(article_id, setCommentsArray, setIsLoading) {
+    try {
+        const response = await fetch(`https://first-nc-project.onrender.com/api/articles/${article_id}/comments`);
+        const data = await response.json();
+        setCommentsArray(data.comments);
+        setIsLoading(false);
+    } catch (error) {
+        // handle error
+    }
+}
