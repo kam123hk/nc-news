@@ -67,3 +67,19 @@ export async function postComment(article_id, commentToPost) {
         // handle error
     }
 }
+
+export async function deleteComment(comment_id) {
+    try {
+        const response = await fetch(`https://first-nc-project.onrender.com/api/comments/${comment_id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+        if (!response.ok) throw new Error("Error, comment not deleted.")
+    } catch (error) {
+        throw error;
+    }
+}
