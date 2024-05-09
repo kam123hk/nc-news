@@ -27,8 +27,8 @@ function Article() {
         }        
     }
 
-    function updateCommentCount() {
-        setCommentChange(currentCommentChange => currentCommentChange + 1)
+    function updateCommentCount(increase) {
+        setCommentChange(currentCommentChange => currentCommentChange + increase)
     }
 
     if (isLoading) return <Loading />

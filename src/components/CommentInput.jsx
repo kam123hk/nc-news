@@ -18,7 +18,7 @@ function CommentInput({ article_id, updateCommentCount }) {
             if (postedComment.message) {
                 alert(postedComment.message);
             } else {
-                updateCommentCount();
+                updateCommentCount(1);
                 setBody("");
                 setUsername("");
             }

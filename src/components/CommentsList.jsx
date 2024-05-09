@@ -18,8 +18,8 @@ function CommentsList({ article_id, updateCommentCount }) {
         return (
         <>
         <CommentInput article_id={article_id} updateCommentCount={updateCommentCount}/>
-        <CommentCard commentsArray={commentsArray} />            
-        </>        
+        <CommentCard commentsArray={commentsArray} updateCommentCount={updateCommentCount} />            
+        </>
         )
     }
 }
