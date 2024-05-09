@@ -31,17 +31,7 @@ export async function fetchComments(article_id, setCommentsArray, setIsLoading) 
     }
 }
 
-// fetch("https://nc-marketplace-sem-2.onrender.com/api/items", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(postedItem),
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         return showNewItem(data.item);
-//       });
+
 
 export async function patchVote(article_id, voteChange) {
     try {
@@ -57,5 +47,23 @@ export async function patchVote(article_id, voteChange) {
         await response.json();
     } catch (error) {
         alert(error.message);
+    }
+}
+
+export async function postComment(article_id, commentToPost) {
+    try {
+        const response = await fetch(`https://first-nc-project.onrender.com/api/articles/${article_id}/comments`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(commentToPost),
+            }
+        )
+        return await response.json();
+
+    } catch (error) {
+        // handle error
     }
 }

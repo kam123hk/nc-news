@@ -11,6 +11,7 @@ function Article() {
     const [isLoading, setIsLoading] = useState(true);
     const {article_id} = useParams();
     const [voteChange, setVoteChange] = useState(0);
+    const [commentChange, setCommentChange] = useState(0)
 
     useEffect(() => {
         fetchArticle(article_id, setArticle, setIsLoading);
@@ -24,6 +25,10 @@ function Article() {
             setVoteChange(currentVoteChange => currentVoteChange - voteChange);
             alert("Your vote did not count. Try again later.")
         }        
+    }
+
+    function updateCommentCount() {
+        setCommentChange(currentCommentChange => currentCommentChange + 1)
     }
 
     if (isLoading) return <Loading />
@@ -46,11 +51,11 @@ function Article() {
                 <ul style={{ listStyleType: 'none' }}>
                     <li>Votes: {article.votes + voteChange}</li>
                     <button onClick={() => handleVote(-1)} disabled={voteChange === -1}>-</button><button onClick={() => handleVote(1)} disabled={voteChange === 1}>+</button>
-                    <li>Comments: {article.comment_count}</li>
+                    <li>Comments: {article.comment_count + commentChange}</li>
                 </ul>
 
-                <Expand contentDescriptor="comments">                
-                    <CommentsList article_id={article.article_id} />
+                <Expand contentDescriptor="comments">                    
+                    <CommentsList article_id={article.article_id} updateCommentCount={updateCommentCount}/>
                 </Expand>
 
             </section>
