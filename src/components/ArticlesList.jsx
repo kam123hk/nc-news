@@ -4,20 +4,28 @@ import Loading from "./Loading";
 import { fetchArticles } from "../api";
 import { useSearchParams } from "react-router-dom";
 import TopicsList from "./TopicsList";
+import ArticleSortByQuery from "./ArticleSortByQuery";
 
 function ArticlesList() {
 
     const [searchParams, setSearchParams] = useSearchParams();
+    const [sortBy, setSortBy] = useState("created_at");
+    const [orderBy, setOrderBy] = useState("desc");
 
-    // for later:
-    const filterByQuery = searchParams.get("sort_by");   
+    function handleSortBy(sortBy) {
+        setSortBy(sortBy);
+    }
+
+    function handleOrderBy(orderBy) {
+        setOrderBy(orderBy);
+    }   
 
     const [articlesArray, setArticlesArray] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         async function fetchArticlesData() {
-        const data = await fetchArticles(searchParams.toString());
+        const data = await fetchArticles(searchParams.toString(), sortBy, orderBy);
         if (data.message) {
             alert(data.message);
             setArticlesArray([]);
@@ -27,7 +35,8 @@ function ArticlesList() {
             setIsLoading(false);
         }}
         fetchArticlesData();        
-    }, [searchParams]);
+    }, [searchParams, sortBy, orderBy]);
+    
     
     if (isLoading) return <Loading />
     else {
@@ -35,6 +44,7 @@ function ArticlesList() {
         <>
         <h2>Articles</h2>
         <TopicsList />
+        <ArticleSortByQuery handleSortBy={handleSortBy} handleOrderBy={handleOrderBy}/>
         <ArticleCard articlesArray={articlesArray} />
         </>
         )

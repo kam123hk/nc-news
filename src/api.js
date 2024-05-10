@@ -1,6 +1,6 @@
-export async function fetchArticles(searchParamsString="") {
+export async function fetchArticles(searchParamsString="", sortBy, orderBy) {
     try {
-        const response = await fetch(`https://first-nc-project.onrender.com/api/articles?${searchParamsString}`);
+        const response = await fetch(`https://first-nc-project.onrender.com/api/articles?${searchParamsString}&sort_by=${sortBy}&order=${orderBy}`);
         return await response.json();
     } catch (error) {
         // handle error
