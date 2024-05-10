@@ -14,7 +14,17 @@ function Article() {
     const [commentChange, setCommentChange] = useState(0)
 
     useEffect(() => {
-        fetchArticle(article_id, setArticle, setIsLoading);
+        async function fetchArticleData() {
+            try {
+                const data = await fetchArticle(article_id);
+                setArticle(data.article);
+                setIsLoading(false);
+            } catch (error) {
+                alert(error.message || "Failed to fetch article");
+                setIsLoading(false);
+            }
+        };
+        fetchArticleData();
     }, [article_id]);
 
     async function handleVote(voteChange) {

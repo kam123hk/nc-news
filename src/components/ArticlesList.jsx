@@ -25,19 +25,24 @@ function ArticlesList() {
 
     useEffect(() => {
         async function fetchArticlesData() {
-        const data = await fetchArticles(searchParams.toString(), sortBy, orderBy);
-        if (data.message) {
-            alert(data.message);
-            setArticlesArray([]);
-            setIsLoading(false);
-        } else {
-            setArticlesArray(data.articles);
-            setIsLoading(false);
-        }}
-        fetchArticlesData();        
+            try {
+                const data = await fetchArticles(searchParams.toString(), sortBy, orderBy);
+                if (data.message) {
+                    alert(data.message);
+                    setArticlesArray([]);
+                    setIsLoading(false);
+                } else {
+                    setArticlesArray(data.articles);
+                    setIsLoading(false);
+                }                
+            } catch (error) {
+                alert(error.message || "Failed to fetch articles");
+            }
+        }
+        fetchArticlesData();
     }, [searchParams, sortBy, orderBy]);
     
-    
+
     if (isLoading) return <Loading />
     else {
         return (

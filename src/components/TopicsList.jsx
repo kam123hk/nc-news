@@ -11,17 +11,17 @@ function TopicsList() {
     useEffect(() => {
         async function fetchTopicsData() {
             try {
-                const topicsArray = await fetchTopics();
-                setTopicsArray(topicsArray);
+                const topicsData = await fetchTopics();
+                setTopicsArray(topicsData.topics);
                 setIsLoading(false);
             } catch (error) {
-                setIsLoading(false);
-                // handle error
+                alert(error.message || "Failed to fetch topics")
+                setIsLoading(false);                
             }
         }
         fetchTopicsData();
     }, []);
-    
+
     
     if (isLoading) return <Loading />
     return (

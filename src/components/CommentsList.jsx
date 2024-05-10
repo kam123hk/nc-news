@@ -10,8 +10,19 @@ function CommentsList({ article_id, updateCommentCount }) {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fetchComments(article_id, setCommentsArray, setIsLoading);
+        async function fetchCommentsData() {
+            try {
+                const data = await fetchComments(article_id);
+                setCommentsArray(data.comments);
+                setIsLoading(false);
+            } catch (error) {
+                alert(error.message || "Failed to fetch comments");
+                setIsLoading(false);
+            }
+        };
+        fetchCommentsData();
     }, [commentsArray])
+
 
     if (isLoading) return <Loading />
     else {
