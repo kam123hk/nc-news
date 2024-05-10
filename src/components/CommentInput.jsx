@@ -25,9 +25,8 @@ function CommentInput({ article_id, updateCommentCount }) {
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
-            // handle error
-        }
-        
+            alert(error.message || "Failed to post comment");
+        }        
     }
 
     function handleUsername(event) {

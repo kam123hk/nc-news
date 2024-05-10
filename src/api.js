@@ -1,31 +1,33 @@
 export async function fetchArticles(searchParamsString="", sortBy, orderBy) {
     try {
         const response = await fetch(`https://first-nc-project.onrender.com/api/articles?${searchParamsString}&sort_by=${sortBy}&order=${orderBy}`);
+
         return await response.json();
+
     } catch (error) {
-        // handle error
+        throw error;
     }
 };
 
-export async function fetchArticle(article_id, setArticle, setIsLoading) {
+export async function fetchArticle(article_id) {
     try {
         const response = await fetch(`https://first-nc-project.onrender.com/api/articles/${article_id}`);
+
         const data = await response.json();
-        setArticle(data.article);
-        setIsLoading(false);
+        return data;
+
     } catch (error) {
-        // handle error
+        throw error;
     }
 };
 
-export async function fetchComments(article_id, setCommentsArray, setIsLoading) {
+export async function fetchComments(article_id) {
     try {
         const response = await fetch(`https://first-nc-project.onrender.com/api/articles/${article_id}/comments`);
         const data = await response.json();
-        setCommentsArray(data.comments);
-        setIsLoading(false);
+        return data;
     } catch (error) {
-        // handle error
+        throw error;
     }
 }
 
@@ -59,10 +61,11 @@ export async function postComment(article_id, commentToPost) {
                 body: JSON.stringify(commentToPost),
             }
         )
+        
         return await response.json();
 
     } catch (error) {
-        // handle error
+        throw error;
     }
 }
 
@@ -86,8 +89,8 @@ export async function fetchTopics() {
     try {
         const response = await fetch(`https://first-nc-project.onrender.com/api/topics`);
         const data = await response.json();
-        return data.topics;
+        return data;
     } catch (error) {
-        // handle error
+        throw error;
     }
 }
