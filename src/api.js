@@ -1,9 +1,7 @@
-export async function fetchArticles(setArticlesArray, setIsLoading) {
+export async function fetchArticles(searchParamsString="") {
     try {
-        const response = await fetch(`https://first-nc-project.onrender.com/api/articles`);
-        const data = await response.json();
-        setArticlesArray(data.articles);
-        setIsLoading(false)
+        const response = await fetch(`https://first-nc-project.onrender.com/api/articles?${searchParamsString}`);
+        return await response.json();
     } catch (error) {
         // handle error
     }
@@ -81,5 +79,15 @@ export async function deleteComment(comment_id) {
         if (!response.ok) throw new Error("Error, comment not deleted.")
     } catch (error) {
         throw error;
+    }
+}
+
+export async function fetchTopics() {
+    try {
+        const response = await fetch(`https://first-nc-project.onrender.com/api/topics`);
+        const data = await response.json();
+        return data.topics;
+    } catch (error) {
+        // handle error
     }
 }
