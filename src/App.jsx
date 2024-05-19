@@ -7,8 +7,9 @@ import Homepage from './components/Homepage';
 import Article from './components/Article';
 import ErrorPage from './components/ErrorPage';
 import { createContext, useState, useEffect } from 'react';
+import LoginProvider from './contexts/Login';
 
-export const ThemeContext = createContext('light');
+export const ThemeContext = createContext();
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
   }, [theme]);
 
   return (
+    <LoginProvider>
     <ThemeContext.Provider value={{theme, setTheme}}>
       <Header />
       <Routes>
@@ -28,6 +30,7 @@ function App() {
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </ThemeContext.Provider>
+    </LoginProvider>
   )
 }
 

@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { deleteComment } from "../api";
 import Loading from "./Loading";
+import { LoginContext } from "../contexts/Login";
 
 
 function CommentCard( { commentsArray, updateCommentCount }) {
+
+    const { user } = useContext(LoginContext)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -20,7 +23,7 @@ function CommentCard( { commentsArray, updateCommentCount }) {
     }
     
     function handleHidden(username) {
-        return username !== "tickle122"
+        return username !== user
     }
 
     function commentsCardMap() {
