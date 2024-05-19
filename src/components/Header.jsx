@@ -1,11 +1,26 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { ThemeContext } from '../App';
 
 function Header() {
+
+    const {theme, setTheme} = useContext(ThemeContext);
+
+    function handleClick() {
+        setTheme(currentTheme => {
+            return currentTheme === 'light' ? 'dark':'light';
+        })
+    }
+
     return (
     <>
-    <h1>NC NEWS</h1>
-    <Link to="/" className='header'>Home</Link>
-    <Link to="/articles" className='header'>Articles</Link>
+    <label className="switch">
+        <input type="checkbox" onClick={handleClick}/>
+        <span className="slider round"></span>
+    </label>
+    <h1 className={theme}>NC NEWS</h1>
+    <Link to="/" className={`header ${theme}`}>Home</Link>
+    <Link to="/articles" className={`header ${theme}`}>Articles</Link>
     </>
     )
 }
